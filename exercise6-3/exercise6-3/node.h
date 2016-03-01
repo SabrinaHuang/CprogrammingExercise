@@ -26,6 +26,7 @@ struct wordtree
 };
 
 void printlist( struct linelist *list );
-struct wordtree *addtree( struct wordtree *node, char *word, int line );
+struct wordtree *addword( struct wordtree *node, char *word, int line );
+void printTree( struct wordtree *node );
 
 #endif /* node_h */

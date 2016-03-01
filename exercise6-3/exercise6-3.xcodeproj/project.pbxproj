@@ -10,6 +10,8 @@
 		04755EEF1C845D11008A2C45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04755EEE1C845D11008A2C45 /* main.m */; };
 		04755EF71C845D37008A2C45 /* SAstring.c in Sources */ = {isa = PBXBuildFile; fileRef = 04755EF51C845D37008A2C45 /* SAstring.c */; };
 		04755EFA1C846819008A2C45 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = 04755EF81C846819008A2C45 /* node.c */; };
+		04C964751C85374600680743 /* noiseWord.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C964731C85374600680743 /* noiseWord.c */; };
+		04C9649B1C857D3600680743 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C964991C857D3600680743 /* stack.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,10 @@
 		04755EF61C845D37008A2C45 /* SAstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAstring.h; sourceTree = "<group>"; };
 		04755EF81C846819008A2C45 /* node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = node.c; sourceTree = "<group>"; };
 		04755EF91C846819008A2C45 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
+		04C964731C85374600680743 /* noiseWord.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noiseWord.c; sourceTree = "<group>"; };
+		04C964741C85374600680743 /* noiseWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noiseWord.h; sourceTree = "<group>"; };
+		04C964991C857D3600680743 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		04C9649A1C857D3600680743 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,10 @@
 				04755EF61C845D37008A2C45 /* SAstring.h */,
 				04755EF81C846819008A2C45 /* node.c */,
 				04755EF91C846819008A2C45 /* node.h */,
+				04C964731C85374600680743 /* noiseWord.c */,
+				04C964741C85374600680743 /* noiseWord.h */,
+				04C964991C857D3600680743 /* stack.c */,
+				04C9649A1C857D3600680743 /* stack.h */,
 			);
 			path = "exercise6-3";
 			sourceTree = "<group>";
@@ -128,8 +138,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C9649B1C857D3600680743 /* stack.c in Sources */,
 				04755EF71C845D37008A2C45 /* SAstring.c in Sources */,
 				04755EEF1C845D11008A2C45 /* main.m in Sources */,
+				04C964751C85374600680743 /* noiseWord.c in Sources */,
 				04755EFA1C846819008A2C45 /* node.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +261,7 @@
 				04755EF41C845D11008A2C45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

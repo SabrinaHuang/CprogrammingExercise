@@ -9,8 +9,9 @@
 #include "SAstring.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 
-char *dupstr(char *s)
+char *SAdupstr(char *s)
 {
     char *p = NULL;
     
@@ -22,19 +23,23 @@ char *dupstr(char *s)
             strcpy(p, s);
         }
     }
-
     return p;
 }
 
 // 不区分大小写的文本比较
 int SAstrcmp( const char *s, const char *t )
 {
-    while ( (tolower(*s) ==  tolower(*t)) && *s && *t )
-    {
-        ++s;
-        ++t;
-    }
+    char *temp_s = SAdupstr(s);
+    char *temp_t = SAdupstr(t);
     
-    return tolower(*s) -  tolower(*t);
+    while ( (tolower(*temp_s) ==  tolower(*temp_t)) && *temp_t && *temp_s )
+    {
+        ++temp_s;
+        ++temp_t;
+    }
+
+    int n = tolower(*temp_s) -  tolower(*temp_t);
+    
+    return n;
 }
 

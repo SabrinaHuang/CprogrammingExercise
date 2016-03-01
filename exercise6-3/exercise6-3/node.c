@@ -7,12 +7,15 @@
 //
 
 #include "node.h"
+#include <string.h>
+#include <malloc/malloc.h>
+#include "SAstring.h"
 
 void printlist( struct linelist *list )
 {
     if (list)
     {
-        printf("%4d ", list->line);
+        printf("%3d", list->line);
         printlist(  list->next );
     }
 }
@@ -43,15 +46,50 @@ struct linelist *addlink( int line )
 }
 
 // 生成一个wordtree对象
-struct wordtree *addtree( struct wordtree *node, char *word, int line )
+struct wordtree *addword( struct wordtree *node, char *word, int line )
 {
     struct wordtree *wordloc = NULL;
     struct linelist *newline = NULL;
     struct wordtree *temp = NULL;
     int diff = 0;
 
-    if (node && word)
+    if (NULL == word)
+        return NULL;
+
+    // 没有节点
+    if ( NULL == node)
     {
-        
+        node = (struct wordtree *)malloc(sizeof(struct wordtree));
+        node->left = NULL;
+        node->right = NULL;
+        node->word = SAdupstr(word);
+        node->firstline = addlink(line);
+
     }
+    // 有节点
+    else
+    {
+        diff = strcmp(node->word, word);
+        
+        // 匹配成功.将新的line节点添到fir
+        if (0 == diff)
+        {
+            newline = addlink(line);
+            newline->next = node->firstline;
+            node->firstline = newline;
+        }
+        // word比node->word大
+        else if (0 > diff)
+        {
+           node->right = addword( node->right, word, line );
+        }
+        // word小，加到左边
+        else if (0 < diff)
+        {
+           node->left = addword( node->left, word, line );
+        }
+    }
+    
+    return node;
 }
+

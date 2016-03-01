@@ -11,4 +11,10 @@
 
 #include <stdio.h>
 
+// 拷贝字符串
+char *SAdupstr(char *s);
+
+// 不区分大小写的文本比较
+int SAstrcmp( const char *s, const char *t );
+
 #endif /* SAstring_h */
