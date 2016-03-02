@@ -11,14 +11,36 @@
 #include "SAstring.h"
 #include "stack.h"
 
+int getWords( char *s );
+char *SAgetline();
+
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        char *line = nil;
+        char *word = nil;
+        struct wordCntNode *wordCnt = nil;
+        struct wordCntTree *wordTree = nil;
+        
+        while ( (line = SAgetline()))
+        {
+            getWords(line);
+            while ((word = pop()))
+            {
+                wordCnt = addWordCntList(wordCnt, word);
+            }
+        }
+        
+        // 按wordcnt排序二叉树
+        do
+        {
+            wordTree = sortWordCnt(wordTree, wordCnt);
+        }while ( NULL != (wordCnt = wordCnt->next) );
+        
+        // 打印二叉树
+        printWordCntTree(wordTree);
     }
-    
     return 0;
 }
 
@@ -42,7 +64,9 @@ char *SAgetline()
     return content[i++];
 }
 
-// 取出一行中的所有单词,返回获取到的单词数
+
+
+// 取出一行中的所有单词，放入栈中，返回值为获取到的单词数
 int getWords( char *s )
 {
     //    char s[] = "add missing constraints";
@@ -55,6 +79,8 @@ int getWords( char *s )
     {
         return nWord;
     }
+    
+    stackClear();
     
     do
     {

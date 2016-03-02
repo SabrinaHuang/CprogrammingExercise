@@ -95,7 +95,44 @@ struct wordtree *addword( struct wordtree *node, char *word, int line )
 
 int printWordCntTree(struct wordCntTree *node)
 {
+    if (NULL == node)
+    {
+        return 0;
+    }
+
+    printWordCntTree(node->left);
     
+    printf("word ");
+    // 打印单词列表
+    printWordList(node->firstword);
+    printf("appear %4d times\n", node->wordNum);
+    
+    printWordCntTree(node->right);
+   
+    return 0;
+}
+
+int printWordCntList( struct wordCntNode *root)
+{
+    if (NULL == root)
+    {
+        return 0;
+    }
+    
+    printf("word %4s appear %4d times\n", root->word, root->wordNum);
+    
+    return printWordCntList( root->next);
+}
+
+int printWordList( struct wordlist *word )
+{
+    if (NULL == word)
+    {
+        return 0;
+    }
+    
+    printf("%s ",word->s);
+    printWordList( word->next );
     
     return 0;
 }
@@ -135,20 +172,113 @@ struct wordCntTree *addWordCnt( struct wordCntTree *node, char *word )
     return node;
 }
 
+struct wordlist *addWordList( struct wordlist *node ,char *word )
+{
+    // word为空，不处理
+    if (NULL == word)
+    {
+        return node;
+    }
+    
+    if (NULL == node)
+        node = wAlloc(word);
+    else
+        node->next = addWordList(node->next, word);
+
+    return node;
+}
+
 struct wordlist *wAlloc( char *word )
 {
     struct wordlist *wordNode = malloc(sizeof(struct wordlist));
-    wordNode->s = word;
-    wordNode->next = NULL;
+    if (NULL != word)
+    {
+        wordNode->s = word;
+        wordNode->next = NULL;
+    }
     
     return wordNode;
 }
 
-// 根据单词出现的频率排序树
-int sortWordCndTree( struct wordCntTree *node )
+struct wordCntNode *wcAlloc( char *s )
 {
+    struct wordCntNode *wc = malloc(sizeof(struct wordCntNode));
+    if (NULL != wc)
+    {
+        wc->next = NULL;
+        wc->word = strdup(s);
+        wc->wordNum = 1;
+    }
+    
+    return wc;
+}
 
-    return 0;
+struct wordCntTree *wtAlloc( struct wordCntNode *list )
+{
+    if (NULL == list)
+    {
+        return NULL;
+    }
+    
+    // 新建一个wordCntTree类型的节点
+    struct wordCntTree *wordTree = malloc(sizeof(struct wordCntTree));
+    if (NULL != wordTree)
+    {
+        wordTree->left = NULL;
+        wordTree->right = NULL;
+        wordTree->wordNum = list->wordNum;
+        wordTree->firstword = addWordList( wordTree->firstword,list->word );
+    }
+    
+    return wordTree;
+}
+
+struct wordCntNode *addWordCntList( struct wordCntNode *w, char *s)
+{
+    if (NULL == s)
+    {
+        return NULL;
+    }
+
+    if (NULL == w)
+    {
+        w = wcAlloc(s);
+    }
+    else if ( 0 == strcmp(w->word, s))
+    {
+        ++w->wordNum;
+        return w;
+    }
+    // 匹配失败，与下一个节点比较
+    else
+    {
+        w->next = addWordCntList( w->next, s);
+    }
+    
+    return w;
+}
+
+// 将wordCntNode中的字符按出现频率排列
+struct wordCntTree *sortWordCnt( struct wordCntTree *root, struct wordCntNode *list )
+{
+    int cond;
+    
+    if (NULL == root)
+    {
+        root = wtAlloc(list);
+    }
+    // 字出现的频率相同，添加到列表中
+    else if ( 0 == ( cond = list->wordNum - root->wordNum ))
+    {
+        root->firstword = addWordList(root->firstword, list->word);
+    }
+    // 字出现的频率小于当前频率节点，转给左节点处理
+    else if (0 > cond )
+        root->left = sortWordCnt(root->left, list);
+    else if (0 < cond)
+        root->right = sortWordCnt(root->right, list);
+    
+    return root;
 }
 
 
