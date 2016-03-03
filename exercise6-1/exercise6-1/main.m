@@ -28,6 +28,7 @@
 
 #define LIMIT 200
 
+int putIntArray( int array[] );
 int getword( int *word, int lim );
 
 int main(int argc, const char * argv[])
@@ -38,7 +39,7 @@ int main(int argc, const char * argv[])
         
         while( EOF != getword(word, LIMIT))
         {
-            puts(word);
+            putIntArray(word);
         }
     }
     return 0;
@@ -47,8 +48,11 @@ int main(int argc, const char * argv[])
 int getword( int *word, int lim )
 {
     int c;
-
     int *w = word;
+    int next;
+    
+    // 清空
+    memset(word, '\0', lim);
     
     // 跳过空白符
     while (isspace( c = getc(stdin) ));
@@ -57,51 +61,66 @@ int getword( int *word, int lim )
     if (EOF != c)
         *w++ = c;
     
-    // 是预编译条件，则读到\n，直接返回
-    if ( '#' == c )
+    switch (c)
     {
-        while ( '\n' != (c = getc(stdin)) );
-        *(w -1) = '\0';
-        return '\0';
-    }
-    
-    // 是注释行
-    if ('/' == c)
-    {
-        // 是行注释，格式为// …………  直接忽略
-        if ('/' == (c = getc(stdin)) )
-        {
-            while ( '\n' != (c = getc(stdin)) &&  (EOF != c) );
-            *(w -1) = '\0';
-            return c;
-        }
+        case '#':
+            while ( '\n' != (c = getc(stdin)) );
+            word[0] = '\0';
+            break;
         
-        // 是段注释 /*的格式 也忽略
-        if ('*' == c )
-        {
-            // 需找结尾 */
-            while ( EOF != (c = getc(stdin)) )
+        case '\"':
+            while ( '\"' != ( c = getc(stdin) ) && EOF != c );
+            if ('\"' == c )
             {
-                if ('*' == c )
-                {
-                    if ( '/' != ( c = getc(stdin)))
-                    {
-                        ungetc(c,stdin);
-                        continue;
-                    }
-                    // 找到结尾
-                    else
-                    {
-                        *(w -1) = '\0';
-                        return c;
-                    }
-                }
+                word[0] = '\0';
             }
-
-        }
+            break;
+            
+        case '/':
+            // 取下一个字符
+            c = getc(stdin);
+            
+            // 是行注释，格式为// …………  直接忽略
+            if ('/' == c )
+            {
+                while ( '\n' != (c = getc(stdin)) &&  (EOF != c) );
+                word[0] = '\0';
+            }
+            
+            // 是段注释 /*的格式 也忽略
+            if ('*' == c )
+            {
+                int preChar = 0;
+                // 需找结尾的'*/'
+                do
+                {
+                    preChar = c;
+                    
+                }while ( !('/' == (c = getc(stdin))  &&  ('*' == preChar) ) && ( EOF != c ) );
+                
+                word[0] = '\0';
+            }
+            break;
+         case '\'':
+            while ( ('\'' != ( c = getc(stdin))) && (EOF != c));
+            word[0] = '\0';
+            break;
+         // 下划线，倘若下一个是字母，认定是合法
+         case '_':
+            next = getc(stdin);
+            if (isalpha(next))
+            {
+                *w++ = next;
+                c = next;
+            }
+            else
+            {
+                ungetc(next, stdin);
+            }
+            break;
+        default:
+            break;
     }
-    
-    // 是
     
     // 倘若获取的字符不是字母，直接返回，这个条件判断兼顾了EOF和一般字符的情况
     if (!isalpha(c))
@@ -124,4 +143,19 @@ int getword( int *word, int lim )
     *w = '\0';
     
     return word[0];
+}
+
+// 打印int数组
+int putIntArray( int array[] )
+{
+    int i ;
+    
+    for (int i = 0; '\0' != array[i]; ++i)
+    {
+        putchar(array[i]);
+    }
+
+    putchar('\n');
+    
+    return i;
 }
