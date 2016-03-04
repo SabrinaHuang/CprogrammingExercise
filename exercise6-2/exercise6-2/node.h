@@ -29,4 +29,8 @@ struct wordNode
     struct wordNode *next;
 };
 
+struct varListNode *addVar( struct varListNode *root, char *var );
+int printVarList( struct varListNode *root );
+
+
 #endif /* node_h */

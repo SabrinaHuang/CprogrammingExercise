@@ -15,7 +15,7 @@ static void *dataArray[MAXSIZE];
 
 static int SAindex = 0;
 
-char *pop()
+void *pop()
 {
     if (0 == SAindex)
     {
@@ -25,7 +25,7 @@ char *pop()
     return dataArray[--SAindex];
 }
 
-void push( char *s)
+void push( void *s)
 {
     if (SAindex < MAXSIZE - 1)
     {

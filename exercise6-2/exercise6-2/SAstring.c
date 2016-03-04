@@ -11,7 +11,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-char *SAdupstr(char *s)
+char *SAdupstr( const char *s)
 {
     char *p = NULL;
     

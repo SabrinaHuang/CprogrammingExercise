@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04992F731C8930CE0083EAEE /* typeWord.c in Sources */ = {isa = PBXBuildFile; fileRef = 04992F711C8930CE0083EAEE /* typeWord.c */; };
 		04C671431C882EAA00016777 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C671421C882EAA00016777 /* main.m */; };
 		04C6714B1C882F8000016777 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C671491C882F8000016777 /* stack.c */; };
 		04C6714E1C882F9B00016777 /* SAstring.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C6714C1C882F9B00016777 /* SAstring.c */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04992F711C8930CE0083EAEE /* typeWord.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = typeWord.c; sourceTree = "<group>"; };
+		04992F721C8930CE0083EAEE /* typeWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = typeWord.h; sourceTree = "<group>"; };
 		04C6713F1C882EAA00016777 /* exercise6-2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "exercise6-2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C671421C882EAA00016777 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04C671491C882F8000016777 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
@@ -73,6 +76,8 @@
 				04C671421C882EAA00016777 /* main.m */,
 				04C6714F1C88364200016777 /* node.c */,
 				04C671501C88364200016777 /* node.h */,
+				04992F711C8930CE0083EAEE /* typeWord.c */,
+				04992F721C8930CE0083EAEE /* typeWord.h */,
 			);
 			path = "exercise6-2";
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C6714B1C882F8000016777 /* stack.c in Sources */,
+				04992F731C8930CE0083EAEE /* typeWord.c in Sources */,
 				04C671511C88364200016777 /* node.c in Sources */,
 				04C6714E1C882F9B00016777 /* SAstring.c in Sources */,
 				04C671431C882EAA00016777 /* main.m in Sources */,
@@ -255,6 +261,7 @@
 				04C671481C882EAA00016777 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

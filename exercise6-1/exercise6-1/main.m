@@ -28,7 +28,7 @@
 
 #define LIMIT 200
 
-int putIntArray( int array[] );
+int printIntArray( int array[] );
 int getword( int *word, int lim );
 
 int main(int argc, const char * argv[])
@@ -45,6 +45,7 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
+// 取标识符，为由字母、数字、下划线组成的字符串，屏蔽 注释和预定义
 int getword( int *word, int lim )
 {
     int c;
@@ -131,7 +132,8 @@ int getword( int *word, int lim )
     
     while (--lim > 0)
     {
-        if (!isalnum(*w = getc(stdin)))
+        // 并非标识符，返回
+        if (!isalnum(*w = getc(stdin)) && ( '_' != *w ) )
         {
             ungetc(*w,stdin);
             break;
@@ -145,8 +147,9 @@ int getword( int *word, int lim )
     return word[0];
 }
 
+
 // 打印int数组
-int putIntArray( int array[] )
+int printIntArray( int array[] )
 {
     int i ;
     

@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 
-char *pop();
-void push( char *);
+void *pop();
+void push( void *s);
 void stackClear();
 
 #endif /* stack_h */
