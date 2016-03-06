@@ -27,6 +27,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		048B0B321C8C1CF100114C09 /* var.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = var.h; path = "../../../../../../Library/Developer/Xcode/DerivedData/exercise6-2-dlovardwhcbdxyessgqkticnchfi/Build/Products/Debug/var.h"; sourceTree = "<group>"; };
 		04992F711C8930CE0083EAEE /* typeWord.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = typeWord.c; sourceTree = "<group>"; };
 		04992F721C8930CE0083EAEE /* typeWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = typeWord.h; sourceTree = "<group>"; };
 		04C6713F1C882EAA00016777 /* exercise6-2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "exercise6-2"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +70,7 @@
 		04C671411C882EAA00016777 /* exercise6-2 */ = {
 			isa = PBXGroup;
 			children = (
+				048B0B321C8C1CF100114C09 /* var.h */,
 				04C6714C1C882F9B00016777 /* SAstring.c */,
 				04C6714D1C882F9B00016777 /* SAstring.h */,
 				04C671491C882F8000016777 /* stack.c */,

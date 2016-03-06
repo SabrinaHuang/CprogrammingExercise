@@ -32,17 +32,6 @@ int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        
-        printf("is %d typeword", isTypeWord("int"));
-        return 0;
-        
-        argc = 3;
-        
-        char *argv[] = {
-                "hey",
-                "-2"
-                };
-        
         // 读取命令行参数
         if (argc < 2)
         {
@@ -92,15 +81,12 @@ int main(int argc, const char * argv[])
             // 是类型声明，获取后续变量，直到';'终止
             if ( isTypeWord( p ))
             {
-                puts(p);
-                
                 // 单词长度大于等于截取的长度，放入排序队列
                 while (';' !=  (c = getVar(word, STRLIMIT)) && (EOF != c) )
                 {
                     char *p = intArrayToCharArray(word);
                     if (strlen(p) >= g_compLimit && (0 == isKeyWord( p )) )
                     {
-                        puts(p);
                         push(p);
                     }
                 }

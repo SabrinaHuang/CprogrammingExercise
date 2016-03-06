@@ -60,7 +60,7 @@ int binSearch( const char *word, const char *list[], int low, int high )
     }
 
     // 匹配失败
-    if (low >= high)
+    if (low > high)
     {
         return 0;
     }
