@@ -14,6 +14,8 @@
 #define SPLIT 80
 #define HEADWIDTH 15
 #define WIDTH 4
+#define TRUE 1
+#define FALSE 0
 
 void ProcessArgs(int argc, char *argv[], int *output);
 int can_print(int ch);
@@ -66,6 +68,7 @@ int can_print(int ch)
 int main(int argc, char *argv[])
 {
     int output = EOF;
+    int inChar = TRUE;
     int ch;
     int textrun = 0;
     int binaryrun = 0;
@@ -88,79 +91,33 @@ int main(int argc, char *argv[])
         // 图形字符
         if(can_print(ch))
         {
-            if(binaryrun > 0)
+            if ( FALSE == inChar || textrun >= SPLIT )
             {
                 putchar('\n');
-                binaryrun = 0;
+                inChar = TRUE;
                 textrun = 0;
+                binaryrun = 0;
             }
             
             putchar(ch);
             ++textrun;
-            
-            if(ch == '\n')
-            {
-                textrun = 0;
-            }
-            
-            if(textrun >= SPLIT)
-            {
-                putchar('\n');
-                textrun = 0;
-            }
         }
         // 非图形字符，以内存表的形式打印
         else
         {
-            if (HEXADECIMAL == output || OCTAL == output)
+            if (YES == inChar || binaryrun >= SPLIT)
             {
-                if(textrun > 0 || binaryrun + WIDTH >= SPLIT)
-                {
-                    printf("\nBinary stream: ");
-                    textrun = 0;
-                    binaryrun = 15;
-                }
-                
-                printf(format, ch);
-                binaryrun += WIDTH;
+                inChar = FALSE;
+                textrun = 0;
+                binaryrun = HEADWIDTH;
+                printf("\nBinary Stream: ");
             }
+        
+            printf(format,ch);
+            binaryrun += WIDTH;
         }
     }
     
     putchar('\n');
     return 0;
 }
-
-/*
- if( isChar )
-	{
- if( NO == inChar || textRun >= SPLIT )
- {
- putchar(‘\n’);
- inChar = true;
- textRun = 0;
- binaryRun = 0;
- }
- putchar(c)
- ++textRun
-	}
-	// 非字符
-	else
-	{
- if( !octal && !hexdecimal )
- continue;
- 
- // 前一个是字符，或文本该折行了 新开一行，刷新参数
- if(YES == inChar || binaryRun >= SPLIT )
- {
- inChar = false;
- textRun = 0;
- binaryRun = HEADWIDTH;
- printf(“\nBinary Stream: ”);
- }
- 
- printf( format,c );
- binaryRun += WIDTH;
-	}
- */
-
