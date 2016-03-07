@@ -11,6 +11,11 @@
 
 #define OCTAL 8 
 #define HEXADECIMAL 16
+#define SPLIT 80
+#define HEADWIDTH 15
+#define WIDTH 4
+#define TRUE 1
+#define FALSE 0
 
 void ProcessArgs(int argc, char *argv[], int *output);
 int can_print(int ch);
@@ -19,21 +24,23 @@ void ProcessArgs(int argc, char *argv[], int *output)
 {
     int i = 0; while(argc > 1)
     {
-        --argc; if(argv[argc][0] == '-')
+        *output = EOF;
+        
+        --argc;
+        
+        if( '-' == argv[argc][0] )
         {
             i = 1;
+            
             while(argv[argc][i] != '\0')
             {
                 if(argv[argc][i] == 'o')
                 {
-                    *output = OCTAL; }
+                    *output = OCTAL;
+                }
                 else if(argv[argc][i] == 'x')
                 {
                     *output = HEXADECIMAL;
-                }
-                else
-                {
-                    
                 }
                 ++i;
             }
@@ -60,68 +67,57 @@ int can_print(int ch)
 
 int main(int argc, char *argv[])
 {
-    int split = 80;
-    int output = HEXADECIMAL; int ch;
+    int output = EOF;
+    int inChar = TRUE;
+    int ch;
     int textrun = 0;
     int binaryrun = 0;
-    char *format;
-    int width = 0;
+    char *format = " " ;
+
     
     ProcessArgs(argc, argv, &output);
-    
     
     if(output == HEXADECIMAL)
     {
         format = "%02X ";
-        width = 4;
     }
-    else
+    else if( OCTAL == output )
     {
-        format = "%3o "; width = 4;
+        format = "%3o ";
     }
-    
-    
+   
     while((ch = getchar()) != EOF)
     {
+        // 图形字符
         if(can_print(ch))
         {
-            if(binaryrun > 0)
+            if ( FALSE == inChar || textrun >= SPLIT )
             {
                 putchar('\n');
-                binaryrun = 0;
+                inChar = TRUE;
                 textrun = 0;
+                binaryrun = 0;
             }
             
             putchar(ch);
             ++textrun;
-            
-            if(ch == '\n')
-            {
-                textrun = 0;
-            }
-            
-            if(textrun == split)
-            {
-                putchar('\n');
-                textrun = 0;
-            }
         }
+        // 非图形字符，以内存表的形式打印
         else
         {
-            if(textrun > 0 || binaryrun + width >= split)
+            if (YES == inChar || binaryrun >= SPLIT)
             {
-                printf("\nBinary stream: ");
+                inChar = FALSE;
                 textrun = 0;
-                binaryrun = 15;
+                binaryrun = HEADWIDTH;
+                printf("\nBinary Stream: ");
             }
-            
-            printf(format, ch);
-            binaryrun += width;
+        
+            printf(format,ch);
+            binaryrun += WIDTH;
         }
     }
     
     putchar('\n');
     return 0;
 }
-
-
