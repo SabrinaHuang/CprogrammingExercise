@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		042E2B661C8D0F5D00795ECA /* var.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = var.h; path = "../../../../../../Library/Developer/Xcode/DerivedData/ex7-2-cobowxjwyknxwnebrrrlxsqzldms/Build/Products/Debug/var.h"; sourceTree = "<group>"; };
 		048B0B911C8C7C1B00114C09 /* ex7-2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ex7-2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B0B941C8C7C1B00114C09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +58,7 @@
 		048B0B931C8C7C1B00114C09 /* ex7-2 */ = {
 			isa = PBXGroup;
 			children = (
+				042E2B661C8D0F5D00795ECA /* var.h */,
 				048B0B941C8C7C1B00114C09 /* main.m */,
 			);
 			path = "ex7-2";
@@ -237,6 +239,7 @@
 				048B0B9A1C8C7C1B00114C09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
