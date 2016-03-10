@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #include <assert.h>
+#include <math.h>
+
+#define LOOPTIMES 10000
 
 int catUnix( char *f1 );
 int catStdio( char *f1 );
@@ -17,7 +20,10 @@ int main(int argc, const char * argv[])
     @autoreleasepool
     {
         clock_t start,finish;
+        double minus;
         double duration1,duration2;
+        
+        double i ;
         
         // 没有参数
         if (argc < 2)
@@ -27,23 +33,43 @@ int main(int argc, const char * argv[])
         }
         
         // 计算时间
-        fprintf(stdout, "\n====================unix output begin====================");
+        fprintf(stdout, "\n====================stdio output begin====================");
 
+        i = LOOPTIMES;
+        
         start = clock();
-        catUnix( (char *)argv[1]);
+        while (i-- > 0)
+        {
+            catUnix( (char *)argv[1]);
+        }
         finish = clock();
         
         duration1 = finish - start;
         
         fprintf(stdout, "\n====================stdio output begin====================");
         
+        i = LOOPTIMES;
         start = clock();
+        
+        while (i-- > 0)
+        {
         catStdio( (char *)argv[1]);
+        }
+        
         finish = clock();
         
         duration2 = finish - start;
         
-        fprintf(stdout, "\nunix IO costs %s time than stdio.\n", (duration1 > duration2)?"more":"less");
+        minus = (duration1 - duration2)/ CLOCKS_PER_SEC;
+        
+        if( fabs(minus) < 0.001f )
+        {
+            fprintf(stdout, "\nstdio IO costs equal time to stdio.\n");
+        }
+        else
+        {
+            fprintf(stdout, "\nstdio IO costs %.2f seconds to stdio.\n", minus );
+        }
     }
     return 0;
 }
