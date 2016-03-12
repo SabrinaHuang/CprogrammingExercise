@@ -89,12 +89,12 @@ static Header *morecore(unsigned nu)
 // 将ap放入空闲列表，遍历空闲列表 
 void free(void *ap)
 {
-	Head *bp, *p;
+	Header *bp, *p;
 	
 	bp = (Header *)ap - 1;
-	for( p = freep; !( bp->p && bp < p->s.ptr ); p = p->s.ptr )
+	for( p = freep; !( bp > p && bp < p->s.ptr ); p = p->s.ptr )
 		// 块在列表的开始或末尾 
-		if( p >= p->s.ptr && ( bp -> p || bp < p->s.ptr ) )
+		if( p >= p->s.ptr && ( bp > p || bp < p->s.ptr ) )
 			break;
 			
 	// 合并到上个块 
