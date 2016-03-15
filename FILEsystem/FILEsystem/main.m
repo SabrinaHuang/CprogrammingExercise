@@ -4,11 +4,12 @@
 
 
 #define  PERMS 0666	/* ∏¯À˘”–µƒ”√ªßø…∂¡ø…–¥»®œﬁ */
-
-#undef fopen
+FILE _iob[FOPEN_MAX];
 
 FILE *SAfopen( char *name, char *mode );
 int _fillbuf(FILE *fp);
+
+
 
 int main(int argc,const char *argv[])
 {
@@ -71,15 +72,15 @@ FILE *SAfopen( char *name, char *mode )
     if( ('r' != *mode) &&  ( 'w' != *mode ) && ( 'a' != *mode ) )
         return NULL;
     
-    for( fp = sa_iob; fp < sa_iob + FOPEN_MAX; ++fp )
+    for( fp = _iob; fp < _iob + FOPEN_MAX; ++fp )
     {
-        // ’“µΩø’≤€
-        if( 0 == (fp->flag & ( _READ | _WRITE)) )
+        // 找到空槽位
+        if( 0 == (fp->_flags & ( __SRD | __SWR)) )
             break;
     }
     
     // √ª’“µΩø’≤€
-    if( fp >= sa_iob + OPEN_MAX )
+    if( fp >= _iob + FOPEN_MAX )
     {
         puts("No alloc space for FILE.\n");
         return NULL;
@@ -90,13 +91,13 @@ FILE *SAfopen( char *name, char *mode )
         fd = create(name, PERMS);
     else if( 'a' == *mode )
     {
-        // ¥Úø™ ß∞‹
+        // 打开失败，创建
         if( 0 > ( fd = open( name, O_WRONLY, 0 )))
         {
             fd = creat(name, PERMS);
         }
-        // Ω´÷∏’Î“∆µΩ ˝◊Èƒ©Œ≤
-        lseek(fd,0L,2);
+        // 定位到文件末尾，实现a操作
+        fp->_seek( fp,0L,2 );
     }
     // ∂¡ƒ£ Ω
     else
@@ -105,10 +106,10 @@ FILE *SAfopen( char *name, char *mode )
     if( 0 > fd )
         return NULL;
     
-    fp->fd = fd;
-    fp->cnt = 0;
-    fp->base = NULL;
-    fp->flag = ( 'r' == *mode )? _READ:_WRITE ;
+    fp->_file = fd;
+    fp->_lbfsize = 0;
+    fp->_bf._base = NULL;
+    fp->_flags = ( 'r' == *mode )? __SRD:__SWR ;
     
     return fp;
 }
