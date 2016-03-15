@@ -59,7 +59,7 @@ SAFILE sa_iob[OPEN_MAX] =
 SAFILE *SAfopen( char *name, char *mode );
 int _fillbuf(SAFILE *fp);
 
-int main(int argc, char *argv[])
+int main(int argc,const char *argv[])
 {
 	SAFILE *fp;
 	int ch;
